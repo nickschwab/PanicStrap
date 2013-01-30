@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>PanicStrap by Nick Schwab</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An open-source iteration of the famous Panic Status Board built upon Twitter Bootstrap">
+    <meta name="author" content="Nick Schwab">
+
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/statusboard.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons 
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="assets/ico/favicon.png">
+    -->
+  </head>
+
+  <body class="body-override">
+
+    <div class="container-fluid">
+    
+        <div class="row-fluid grid-margins">
+            <div class="span12" data-original-title=""></div>
+        </div>
+        
+
+        <div class="row-fluid grid-margins">
+            <div class="span2" data-original-title="">
+                <div class="progress progress-info">
+                    <div class="bar vertical" style="height: 50%;">
+                        <div class="barheader">
+                            50%<span class="slash" style="display: none;">/</span><span class="denominator" style="display: none;">50</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="rowlabels">Chrome</div>
+            </div>
+            <div class="span2" data-original-title="">
+                <div class="progress progress-success">
+                    <div class="bar vertical" style="height: 50%;">
+                        <div class="barheader">
+                            50%<span class="slash" style="display: none;">/</span><span class="denominator" style="display: none;">50</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="rowlabels">Firefox</div>
+            </div>
+            <div class="span2" data-original-title="">
+                <div class="progress progress-warning">
+                    <div class="bar vertical" style="height: 50%;">
+                        <div class="barheader">
+                            50%<span class="slash" style="display: none;">/</span><span class="denominator" style="display: none;">50</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="rowlabels">Safari</div>
+            </div>
+            <div class="span2" data-original-title="">
+                <div class="progress progress-danger">
+                    <div class="bar vertical" style="height: 50%;">
+                        <div class="barheader">
+                            50%<span class="slash" style="display: none;">/</span><span class="denominator" style="display: none;">50</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="rowlabels">IE</div>
+            </div>
+            
+            <div class="span4 show bigrow" data-original-title="">
+                <div class="row-fluid grid-margins rowlabels">
+                    <div class="span12 heavy dateheader" data-original-title="">Monday. 3/8</div>
+                </div>
+                <div class="row-fluid grid-margins">
+                    <div class="span12 heavy eventname" data-original-title=""><span class="predate">3/11</span>Nick Out (vacation)</div>
+                </div>
+                <div class="row-fluid grid-margins">
+                    <div class="span12 heavy eventname" data-original-title=""><span class="predate">3/15</span>Google IO (Moscone Center)</div>
+                </div>
+                <div class="row-fluid grid-margins">
+                    <div class="span12 heavy eventname" data-original-title=""><span class="predate">3/23</span>Zach Out (vacation)</div>
+                </div>
+            </div>
+            
+        </div>
+        
+        
+        
+        <div class="row-fluid grid-margins">
+          <div class="span12" data-original-title=""></div>
+        </div>
+        
+        
+        <div class="row-fluid grid-margins">
+          <div class="span3 show heavy" data-original-title=""><img src="assets/img/browser-icon-chrome.png">Chrome</div>
+          <div class="span2 show heavy2" data-original-title="">supported</div>
+          <div class="span2 show heavy2" data-original-title="">1/27/2013</div>
+          <div class="span5 show heavy2" data-original-title="">The best browser on the planet, hands down</div>
+        </div>
+        <div class="row-fluid grid-margins">
+          <div class="span3 show heavy" data-original-title=""><img src="assets/img/browser-icon-firefox.png">Firefox</div>
+          <div class="span2 show heavy2" data-original-title="">supported</div>
+          <div class="span2 show heavy2" data-original-title="">1/27/2013</div>
+          <div class="span5 show heavy2" data-original-title="">It's not WebKit, but at least it's not I.E.</div>
+        </div>
+        <div class="row-fluid grid-margins">
+          <div class="span3 show heavy" data-original-title=""><img src="assets/img/browser-icon-safari.png">Safari</div>
+          <div class="span2 show heavy2" data-original-title="">unsupported</div>
+          <div class="span2 show heavy2" data-original-title="">1/27/2013</div>
+          <div class="span5 show heavy2" data-original-title="">At least the Apple folks have WebKit support</div>
+        </div>
+        
+        
+        <div class="row-fluid grid-margins">
+          <div class="span12" data-original-title=""></div>
+        </div>
+        
+        
+        <div class="row-fluid grid-margins countdown">
+            <div class="span12" data-original-title=""><img src="assets/img/browser-icon-safari.png" height="44px" width="44px" style="margin-right:15px;">25 days <span style="color:#777;">until safari launch</span></div>
+        </div>
+        
+        
+        <div class="row-fluid grid-margins">
+          <div class="span12" data-original-title=""></div>
+        </div>
+        
+        
+        <div class="row-fluid grid-margins bigbox">
+            <div class="span3 show bigrow updown" data-original-title="">
+                <div class="content green">+42%</div>
+            </div>
+            <div class="span3 show bigrow updown" data-original-title="">
+                <div class="content green">+63%</div>
+            </div>
+            <div class="span3 show bigrow updown" data-original-title="">
+                <div class="content red">-21%</div>
+            </div>
+            <div class="span3 show bigrow updown" data-original-title="">
+                <div class="content green">+94%</div>
+            </div>  
+        </div>
+        
+        
+        <div class="row-fluid grid-margins">
+            <div class="span12" data-original-title=""></div>
+        </div>
+
+        
+        <div class="row-fluid grid-margins">
+            <div class="span12 show tweets" id="companytweets" data-original-title="">
+                 Nullam id dolor id nibh ultricies vehicula.
+            </div>
+        </div>
+        <div class="row-fluid grid-margins">
+            <div class="span12 show tweets" id="publictweets" data-original-title="">
+                Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.
+            </div>
+        </div>
+        
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!--<script src="assets/js/jquery.min.js" type="javascript"></script>-->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="assets/js/bootstrap.min.js" type="javascript"></script>
+    <script>
+        function get_tweets(dom_element, search_url){
+        
+            var tweet_string = '';
+            $.getJSON(search_url, function(data)
+            {
+                $(data.results).each(function(i,v)
+                {
+                    var tweet='<a target="_blank" href="http://twitter.com/'+this.from_user+'"><img width="48" height="48" alt="'+this.from_user+' on Twitter" src="'+this.profile_image_url+'" /></a>'+this.text.replace(/<a/g,'<a target="_blank"')+'';
+                    tweet_string = tweet_string + tweet;
+                    //tweet_array.push(tweet); //add the tweet to the array
+                });
+                console.log(tweet_string);
+                $(dom_element).html('<marquee>' + tweet_string + '</marquee>');
+            });
+            
+        }
+        
+        function randomize(){
+        
+            // randomize the value of each graph
+            $(".vertical").each(function(){
+                var child_element = $(this);
+                var new_value = (Math.floor(Math.random()*101)+"%");
+                setTimeout(function(){
+                    $(child_element).find(".barheader").fadeOut(250, function(){
+                        $(child_element).find(".barheader").html(new_value).fadeIn(250);
+                    });
+                    $(child_element).animate({
+                        height: new_value
+                    }, 700);
+                },Math.floor(3001-Math.random()*2001));
+            });
+            
+            // randomize the value of each up/down box
+            $(".updown .content").each(function(){
+                var child_element = $(this);
+                setTimeout(function(){
+                    //$(child_element).slideUp(500, function(){
+                    //    $(child_element).text((-100 + Math.floor(Math.random()*201)+"%")).slideDown(500);
+                    //});
+                    $(child_element).fadeOut(500, function(){
+                        var new_number = (-100 + Math.floor(Math.random()*201));
+                        var new_text = '';
+                        if(new_number > 0)
+                        {
+                            new_text = "+";
+                            $(child_element).removeClass("red");
+                            $(child_element).addClass("green");
+                        }else{
+                            $(child_element).removeClass("green");
+                            $(child_element).addClass("red");
+                        }
+                        new_text += new_number + "%";
+                        $(child_element).text(new_text).fadeIn(500);
+                    });
+                },Math.floor(3001-Math.random()*2001));
+            });
+            
+        }
+        
+        // get initial data on page load
+        randomize()
+        get_tweets('#companytweets','http://search.twitter.com/search.json?q=nickschwab&rpp=40&callback=?')
+        get_tweets('#publictweets','http://search.twitter.com/search.json?q=pebble&rpp=40&callback=?')
+        
+        // regular intervals to refresh data
+        setInterval(function(){ get_tweets('#companytweets','http://search.twitter.com/search.json?q=nickschwab&rpp=5&callback=?') }, 300000); // get new company tweets every 5 minutes
+        setInterval(function(){ get_tweets('#publictweets','http://search.twitter.com/search.json?q=pebble&rpp=5&callback=?') }, 300000); // get new public tweets every 5 minutes
+        setInterval(function(){ randomize() }, 7000); // randomize data every 7 seconds
+
+    </script>
+
+  </body>
+</html>
