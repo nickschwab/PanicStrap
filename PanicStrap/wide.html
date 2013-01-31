@@ -199,12 +199,14 @@
                 var child_element = $(this);
                 var new_value = (Math.floor(Math.random()*101)+"%");
                 setTimeout(function(){
-                    $(child_element).find(".barheader").fadeOut(250, function(){
-                        $(child_element).find(".barheader").html(new_value).fadeIn(250);
+                    $(child_element).find(".barheader").slideUp(200, function(){
+                        $(child_element).animate({
+                            height: new_value
+                        }, 700, function(){
+                            $(child_element).find(".barheader").html(new_value).slideDown(200);
+                        });
                     });
-                    $(child_element).animate({
-                        height: new_value
-                    }, 700);
+                    
                 },Math.floor(3001-Math.random()*2001));
             });
             
@@ -237,12 +239,12 @@
         
         // get initial data on page load
         randomize()
-        get_tweets('#companytweets','http://search.twitter.com/search.json?q=nickschwab&rpp=40&callback=?')
-        get_tweets('#publictweets','http://search.twitter.com/search.json?q=pebble&rpp=40&callback=?')
+        get_tweets('#companytweets','http://search.twitter.com/search.json?q=@nickschwab&rpp=40&callback=?')
+        get_tweets('#publictweets','http://search.twitter.com/search.json?q=@pebble&rpp=40&callback=?')
         
         // regular intervals to refresh data
-        setInterval(function(){ get_tweets('#companytweets','http://search.twitter.com/search.json?q=nickschwab&rpp=5&callback=?') }, 300000); // get new company tweets every 5 minutes
-        setInterval(function(){ get_tweets('#publictweets','http://search.twitter.com/search.json?q=pebble&rpp=5&callback=?') }, 300000); // get new public tweets every 5 minutes
+        setInterval(function(){ get_tweets('#companytweets','http://search.twitter.com/search.json?q=@nickschwab&rpp=5&callback=?') }, 300000); // get new company tweets every 5 minutes
+        setInterval(function(){ get_tweets('#publictweets','http://search.twitter.com/search.json?q=@pebble&rpp=5&callback=?') }, 300000); // get new public tweets every 5 minutes
         setInterval(function(){ randomize() }, 7000); // randomize data every 7 seconds
 
     </script>
