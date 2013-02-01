@@ -34,7 +34,7 @@
         
 
         <div class="row-fluid grid-margins">
-            <div class="span2" data-original-title="">
+            <div class="span2" data-original-title="" id="graph1">
                 <div class="progress progress-info">
                     <div class="bar vertical" style="height: 50%;">
                         <div class="barheader">
@@ -44,7 +44,7 @@
                 </div>
                 <div class="rowlabels">Chrome</div>
             </div>
-            <div class="span2" data-original-title="">
+            <div class="span2" data-original-title="" id="graph2">
                 <div class="progress progress-success">
                     <div class="bar vertical" style="height: 50%;">
                         <div class="barheader">
@@ -54,7 +54,7 @@
                 </div>
                 <div class="rowlabels">Firefox</div>
             </div>
-            <div class="span2" data-original-title="">
+            <div class="span2" data-original-title="" id="graph3">
                 <div class="progress progress-warning">
                     <div class="bar vertical" style="height: 50%;">
                         <div class="barheader">
@@ -64,7 +64,7 @@
                 </div>
                 <div class="rowlabels">Safari</div>
             </div>
-            <div class="span2" data-original-title="">
+            <div class="span2" data-original-title="" id="graph4">
                 <div class="progress progress-danger">
                     <div class="bar vertical" style="height: 50%;">
                         <div class="barheader">
@@ -135,16 +135,16 @@
         
         
         <div class="row-fluid grid-margins bigbox">
-            <div class="span3 show bigrow updown" data-original-title="">
+            <div class="span3 show bigrow updown" data-original-title="" id="cell1">
                 <div class="content green">+42%</div>
             </div>
-            <div class="span3 show bigrow updown" data-original-title="">
+            <div class="span3 show bigrow updown" data-original-title="" id="cell2">
                 <div class="content green">+63%</div>
             </div>
-            <div class="span3 show bigrow updown" data-original-title="">
+            <div class="span3 show bigrow updown" data-original-title="" id="cell3">
                 <div class="content red">-21%</div>
             </div>
-            <div class="span3 show bigrow updown" data-original-title="">
+            <div class="span3 show bigrow updown" data-original-title="" id="cell4">
                 <div class="content green">+94%</div>
             </div>  
         </div>
@@ -192,60 +192,90 @@
             
         }
         
-        function randomize(){
-        
-            // randomize the value of each graph
-            $(".vertical").each(function(){
-                var child_element = $(this);
-                var new_value = (Math.floor(Math.random()*101)+"%");
-                setTimeout(function(){
-                    $(child_element).find(".barheader").slideUp(200, function(){
-                        $(child_element).animate({
-                            height: new_value
-                        }, 700, function(){
-                            $(child_element).find(".barheader").html(new_value).slideDown(200);
-                        });
-                    });
-                    
-                },Math.floor(3001-Math.random()*2001));
-            });
+        (function( $ ) {
             
-            // randomize the value of each up/down box
-            $(".updown .content").each(function(){
-                var child_element = $(this);
-                setTimeout(function(){
-                    //$(child_element).slideUp(500, function(){
-                    //    $(child_element).text((-100 + Math.floor(Math.random()*201)+"%")).slideDown(500);
-                    //});
-                    $(child_element).fadeOut(500, function(){
+            $.fn.panicstrap_graph = function(option, type){
+                
+                if(type == 0 || type == 'graph')
+                {
+                    if(option == 'random')
+                    {
+                        var new_value = (Math.floor(Math.random()*101));
+                    }else{     
+                        var new_value = Math.floor(eval(eval(option)*100));
+                    }
+                    
+                    var child_element = $(this).children().children();
+                    if(new_value > 100)
+                    {
+                        new_value = 100;
+                    }
+                    if(new_value < 0)
+                    {
+                        new_value = 0;
+                    }
+                    
+                    new_value = new_value + "%";
+                    $(child_element).find(".barheader").fadeOut(250, function(){
+                        $(child_element).find(".barheader").html(new_value).fadeIn(250);
+                    });
+                    $(child_element).animate({
+                        height: new_value
+                    }, 700); 
+                    
+                }else if(type == 1 || type == 'cell'){
+                    
+                    var child_element = $(this).children();
+                    if(option == 'random')
+                    {
+                        // randomize the value of each up/down box
                         var new_number = (-100 + Math.floor(Math.random()*201));
-                        var new_text = '';
+                    }else{
+                        var new_number = Math.floor(eval(eval(option)*100));
+                    }
+                    
+                    $(child_element).fadeOut(500, function(){
                         if(new_number > 0)
                         {
-                            new_text = "+";
+                            new_number = "+" + new_number;
                             $(child_element).removeClass("red");
                             $(child_element).addClass("green");
                         }else{
                             $(child_element).removeClass("green");
                             $(child_element).addClass("red");
                         }
-                        new_text += new_number + "%";
-                        $(child_element).text(new_text).fadeIn(500);
+                        
+                        new_number = new_number + "%";
+                        $(child_element).text(new_number).fadeIn(500);
                     });
-                },Math.floor(3001-Math.random()*2001));
-            });
+                }
+            } 
             
-        }
+        })( jQuery );
         
+        function randomize(){
+            
+            // randomize the value of each graph
+            $('#graph1').panicstrap_graph('random', 0);
+            setTimeout(function(){ $('#graph2').panicstrap_graph('random', 0) }, 1000);
+            setTimeout(function(){ $('#graph3').panicstrap_graph('random', 0) }, 2000);
+            setTimeout(function(){ $('#graph4').panicstrap_graph('random', 0) }, 3000);
+            // randomize the value of each cell
+            $('#cell1').panicstrap_graph('random', 1);
+            setTimeout(function(){ $('#cell2').panicstrap_graph('random', 1) }, 1000);
+            setTimeout(function(){ $('#cell3').panicstrap_graph('random', 1) }, 2000);
+            setTimeout(function(){ $('#cell4').panicstrap_graph('random', 1) }, 3000);
+        }
+        randomize();
+        setInterval(function(){ randomize() }, 4000);
         // get initial data on page load
-        randomize()
         get_tweets('#companytweets','http://search.twitter.com/search.json?q=@nickschwab&rpp=40&callback=?')
         get_tweets('#publictweets','http://search.twitter.com/search.json?q=@pebble&rpp=40&callback=?')
         
-        // regular intervals to refresh data
+         //regular intervals to refresh data
         setInterval(function(){ get_tweets('#companytweets','http://search.twitter.com/search.json?q=@nickschwab&rpp=5&callback=?') }, 300000); // get new company tweets every 5 minutes
         setInterval(function(){ get_tweets('#publictweets','http://search.twitter.com/search.json?q=@pebble&rpp=5&callback=?') }, 300000); // get new public tweets every 5 minutes
-        setInterval(function(){ randomize() }, 7000); // randomize data every 7 seconds
+
 
     </script>
 
