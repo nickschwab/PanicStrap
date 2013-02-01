@@ -34,41 +34,41 @@
         
 
         <div class="row-fluid grid-margins">
-            <div class="span2" data-original-title="" id="graph1">
+            <div class="span2" data-original-title="">
                 <div class="progress progress-info">
-                    <div class="bar vertical" style="height: 50%;">
+                    <div class="bar vertical" id="graph1" style="height: 50%;">
                         <div class="barheader">
-                            50%<span class="slash" style="display: none;">/</span><span class="denominator" style="display: none;">50</span>
+                            50%
                         </div>
                     </div>
                 </div>
                 <div class="rowlabels">Chrome</div>
             </div>
-            <div class="span2" data-original-title="" id="graph2">
+            <div class="span2" data-original-title="">
                 <div class="progress progress-success">
-                    <div class="bar vertical" style="height: 50%;">
+                    <div class="bar vertical" id="graph2" style="height: 50%;">
                         <div class="barheader">
-                            50%<span class="slash" style="display: none;">/</span><span class="denominator" style="display: none;">50</span>
+                            50%
                         </div>
                     </div>
                 </div>
                 <div class="rowlabels">Firefox</div>
             </div>
-            <div class="span2" data-original-title="" id="graph3">
+            <div class="span2" data-original-title="">
                 <div class="progress progress-warning">
-                    <div class="bar vertical" style="height: 50%;">
+                    <div class="bar vertical" id="graph3" style="height: 50%;">
                         <div class="barheader">
-                            50%<span class="slash" style="display: none;">/</span><span class="denominator" style="display: none;">50</span>
+                            50%
                         </div>
                     </div>
                 </div>
                 <div class="rowlabels">Safari</div>
             </div>
-            <div class="span2" data-original-title="" id="graph4">
+            <div class="span2" data-original-title="">
                 <div class="progress progress-danger">
-                    <div class="bar vertical" style="height: 50%;">
+                    <div class="bar vertical" id="graph4" style="height: 50%;">
                         <div class="barheader">
-                            50%<span class="slash" style="display: none;">/</span><span class="denominator" style="display: none;">50</span>
+                            50%
                         </div>
                     </div>
                 </div>
@@ -135,16 +135,16 @@
         
         
         <div class="row-fluid grid-margins bigbox">
-            <div class="span3 show bigrow updown" data-original-title="" id="cell1">
+            <div class="span3 show bigrow updown" id="updown1" data-original-title="">
                 <div class="content green">+42%</div>
             </div>
-            <div class="span3 show bigrow updown" data-original-title="" id="cell2">
+            <div class="span3 show bigrow updown" id="updown2" data-original-title="">
                 <div class="content green">+63%</div>
             </div>
-            <div class="span3 show bigrow updown" data-original-title="" id="cell3">
+            <div class="span3 show bigrow updown" id="updown3" data-original-title="">
                 <div class="content red">-21%</div>
             </div>
-            <div class="span3 show bigrow updown" data-original-title="" id="cell4">
+            <div class="span3 show bigrow updown" id="updown4" data-original-title="">
                 <div class="content green">+94%</div>
             </div>  
         </div>
@@ -186,96 +186,83 @@
                     tweet_string = tweet_string + tweet;
                     //tweet_array.push(tweet); //add the tweet to the array
                 });
-                console.log(tweet_string);
+                //console.log(tweet_string);
                 $(dom_element).html('<marquee>' + tweet_string + '</marquee>');
             });
             
         }
         
+        // extends jquery for elements to support the .panicstrap_update(number or 'random') function
         (function( $ ) {
-            
-            $.fn.panicstrap_graph = function(option, type){
-                
-                if(type == 0 || type == 'graph')
+            $.fn.panicstrap_update = function(option){
+                if($(this).hasClass('vertical'))
                 {
-                    if(option == 'random')
-                    {
-                        var new_value = (Math.floor(Math.random()*101));
-                    }else{     
-                        var new_value = Math.floor(eval(eval(option)*100));
-                    }
-                    
-                    var child_element = $(this).children().children();
-                    if(new_value > 100)
-                    {
-                        new_value = 100;
-                    }
-                    if(new_value < 0)
-                    {
-                        new_value = 0;
-                    }
-                    
-                    new_value = new_value + "%";
-                    $(child_element).find(".barheader").fadeOut(250, function(){
-                        $(child_element).find(".barheader").html(new_value).fadeIn(250);
-                    });
-                    $(child_element).animate({
-                        height: new_value
-                    }, 700); 
-                    
-                }else if(type == 1 || type == 'cell'){
-                    
-                    var child_element = $(this).children();
-                    if(option == 'random')
-                    {
-                        // randomize the value of each up/down box
-                        var new_number = (-100 + Math.floor(Math.random()*201));
-                    }else{
-                        var new_number = Math.floor(eval(eval(option)*100));
-                    }
-                    
-                    $(child_element).fadeOut(500, function(){
-                        if(new_number > 0)
+                    $(this).each(function(){
+                        var graph_element = $(this);
+                        if(option == 'random')
                         {
-                            new_number = "+" + new_number;
-                            $(child_element).removeClass("red");
-                            $(child_element).addClass("green");
-                        }else{
-                            $(child_element).removeClass("green");
-                            $(child_element).addClass("red");
+                            var new_value = (Math.floor(Math.random()*101));
+                        }else{     
+                            var new_value = Math.floor(option);
                         }
                         
-                        new_number = new_number + "%";
-                        $(child_element).text(new_number).fadeIn(500);
+                        if(new_value > 100)
+                        {
+                            new_value = 100;
+                        }else if(new_value < 0){
+                            new_value = 0;
+                        }
+                        
+                        new_value = new_value + "%";
+                        graph_element.find(".barheader").slideUp(200, function(){
+                            graph_element.animate({
+                                height: new_value
+                            }, 700, function(){
+                                graph_element.find(".barheader").html(new_value).slideDown(200);
+                            });
+                        });
+                    });
+                }else if($(this).hasClass('updown')){
+                    $(this).find('.content').each(function(){
+                        if(option == 'random')
+                        {
+                            var new_number = (-100 + Math.floor(Math.random()*201));
+                        }else{
+                            var new_number = Math.floor(option);
+                        }
+                    
+                        $(this).fadeOut(500, function(){
+                            if(new_number > 0)
+                            {
+                                new_number = "+" + new_number;
+                                $(this).removeClass("red");
+                                $(this).addClass("green");
+                            }else{
+                                $(this).removeClass("green");
+                                $(this).addClass("red");
+                            }
+                            
+                            new_number = new_number + "%";
+                            $(this).text(new_number).fadeIn(500);
+                        });
                     });
                 }
             } 
-            
-        })( jQuery );
+        })( jQuery );  
         
-        function randomize(){
-            
-            // randomize the value of each graph
-            $('#graph1').panicstrap_graph('random', 0);
-            setTimeout(function(){ $('#graph2').panicstrap_graph('random', 0) }, 1000);
-            setTimeout(function(){ $('#graph3').panicstrap_graph('random', 0) }, 2000);
-            setTimeout(function(){ $('#graph4').panicstrap_graph('random', 0) }, 3000);
-            // randomize the value of each cell
-            $('#cell1').panicstrap_graph('random', 1);
-            setTimeout(function(){ $('#cell2').panicstrap_graph('random', 1) }, 1000);
-            setTimeout(function(){ $('#cell3').panicstrap_graph('random', 1) }, 2000);
-            setTimeout(function(){ $('#cell4').panicstrap_graph('random', 1) }, 3000);
-        }
-        randomize();
-        setInterval(function(){ randomize() }, 4000);
         // get initial data on page load
-        get_tweets('#companytweets','http://search.twitter.com/search.json?q=@nickschwab&rpp=40&callback=?')
-        get_tweets('#publictweets','http://search.twitter.com/search.json?q=@pebble&rpp=40&callback=?')
+        get_tweets('#companytweets','http://search.twitter.com/search.json?q=@nickschwab&rpp=40&callback=?') // get company tweets
+        get_tweets('#publictweets','http://search.twitter.com/search.json?q=pebbletime&rpp=40&callback=?') // get public tweets
+        $('#graph1').panicstrap_update('random') // randomize a specific graph
+        $('#graph3').panicstrap_update(86) // set a value for a specific graph
+        $('#updown1').panicstrap_update('random') // randomize a specific up/down cell
+        $('#updown3').panicstrap_update(67) // set a value for a specific up/down cell
         
-         //regular intervals to refresh data
+         // randomize all the data at defined intervals
         setInterval(function(){ get_tweets('#companytweets','http://search.twitter.com/search.json?q=@nickschwab&rpp=5&callback=?') }, 300000); // get new company tweets every 5 minutes
-        setInterval(function(){ get_tweets('#publictweets','http://search.twitter.com/search.json?q=@pebble&rpp=5&callback=?') }, 300000); // get new public tweets every 5 minutes
-
+        setInterval(function(){ get_tweets('#publictweets','http://search.twitter.com/search.json?q=pebbletime&rpp=5&callback=?') }, 300000); // get new public tweets every 5 minutes
+        setInterval(function(){ $('.vertical').panicstrap_update('random') }, 6000); // randomize all graphs
+        setInterval(function(){ $('.updown').panicstrap_update('random') }, 6000); // randomize all updown numbers
 
     </script>
 
