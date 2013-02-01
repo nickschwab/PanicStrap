@@ -194,7 +194,7 @@
         
         (function( $ ) {
             
-            $.fn.update_page = function(option, type){
+            $.fn.panicstrap_graph = function(option, type){
                 
                 if(type == 0 || type == 'graph')
                 {
@@ -251,9 +251,23 @@
                 }
             } 
             
-        })( jQuery );        
-      
+        })( jQuery );
         
+        function randomize(){
+            
+            // randomize the value of each graph
+            $('#graph1').panicstrap_graph('random', 0);
+            setTimeout(function(){ $('#graph2').panicstrap_graph('random', 0) }, 1000);
+            setTimeout(function(){ $('#graph3').panicstrap_graph('random', 0) }, 2000);
+            setTimeout(function(){ $('#graph4').panicstrap_graph('random', 0) }, 3000);
+            // randomize the value of each cell
+            $('#cell1').panicstrap_graph('random', 1);
+            setTimeout(function(){ $('#cell2').panicstrap_graph('random', 1) }, 1000);
+            setTimeout(function(){ $('#cell3').panicstrap_graph('random', 1) }, 2000);
+            setTimeout(function(){ $('#cell4').panicstrap_graph('random', 1) }, 3000);
+        }
+        randomize();
+        setInterval(function(){ randomize() }, 4000);
         // get initial data on page load
         get_tweets('#companytweets','http://search.twitter.com/search.json?q=@nickschwab&rpp=40&callback=?')
         get_tweets('#publictweets','http://search.twitter.com/search.json?q=@pebble&rpp=40&callback=?')
