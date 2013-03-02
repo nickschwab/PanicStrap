@@ -9,19 +9,15 @@
 
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/statusboard.css" rel="stylesheet">
+    
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js" type="javascript"></script>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
-    <!-- Fav and touch icons 
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
-                    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
-                                   <link rel="shortcut icon" href="assets/ico/favicon.png">
-    -->
+    
   </head>
 
   <body class="body-override">
@@ -77,7 +73,7 @@
             
             <div class="span4 show bigrow" data-original-title="">
                 <div class="row-fluid grid-margins rowlabels">
-                    <div class="span12 heavy dateheader" data-original-title="">Monday. 3/8</div>
+                    <div class="span12 heavy dateheader" id="current_date" data-original-title="">Monday. 3/8</div>
                 </div>
                 <div class="row-fluid grid-margins">
                     <div class="span12 heavy eventname" data-original-title=""><span class="predate">3/11</span>Nick Out (vacation)</div>
@@ -91,7 +87,6 @@
             </div>
             
         </div>
-        
         
         
         <div class="row-fluid grid-margins">
@@ -167,32 +162,9 @@
         </div>
         
     </div> <!-- /container -->
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <!--<script src="assets/js/jquery.min.js" type="javascript"></script>-->
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="assets/js/bootstrap.min.js" type="javascript"></script>
+    
     <script>
-        function get_tweets(dom_element, search_url){
-        
-            var tweet_string = '';
-            $.getJSON(search_url, function(data)
-            {
-                $(data.results).each(function(i,v)
-                {
-                    var tweet='<a target="_blank" href="http://twitter.com/'+this.from_user+'"><img width="48" height="48" alt="'+this.from_user+' on Twitter" src="'+this.profile_image_url+'" /></a>'+this.text.replace(/<a/g,'<a target="_blank"')+'';
-                    tweet_string = tweet_string + tweet;
-                    //tweet_array.push(tweet); //add the tweet to the array
-                });
-                //console.log(tweet_string);
-                $(dom_element).html('<marquee>' + tweet_string + '</marquee>');
-            });
-            
-        }
-        
-        // extends jquery for elements to support the .panicstrap_update(number or 'random') function
+        // initialize panicstrap_update jquery extension
         (function( $ ) {
             $.fn.panicstrap_update = function(option){
                 if($(this).hasClass('vertical'))
@@ -248,22 +220,45 @@
                     });
                 }
             } 
-        })( jQuery );  
-        
-        // get initial data on page load
-        get_tweets('#companytweets','http://search.twitter.com/search.json?q=@nickschwab&rpp=40&callback=?') // get company tweets
-        get_tweets('#publictweets','http://search.twitter.com/search.json?q=pebbletime&rpp=40&callback=?') // get public tweets
-        $('#graph1').panicstrap_update('random') // randomize a specific graph
-        $('#graph3').panicstrap_update(86) // set a value for a specific graph
-        $('#updown1').panicstrap_update('random') // randomize a specific up/down cell
-        $('#updown3').panicstrap_update(67) // set a value for a specific up/down cell
-        
-         // randomize all the data at defined intervals
-        setInterval(function(){ get_tweets('#companytweets','http://search.twitter.com/search.json?q=@nickschwab&rpp=5&callback=?') }, 300000); // get new company tweets every 5 minutes
-        setInterval(function(){ get_tweets('#publictweets','http://search.twitter.com/search.json?q=pebbletime&rpp=5&callback=?') }, 300000); // get new public tweets every 5 minutes
-        setInterval(function(){ $('.vertical').panicstrap_update('random') }, 6000); // randomize all graphs
-        setInterval(function(){ $('.updown').panicstrap_update('random') }, 6000); // randomize all updown numbers
+        })( jQuery );
 
+        // custom function for fetching of new tweets with built-in use of <marquee>
+        function get_tweets(dom_element, search_url){
+            var tweet_string = '<marquee>';
+            $.getJSON(search_url, function(data)
+            {
+                $(data.results).each(function(i,v)
+                {
+                    var tweet='<a target="_blank" href="http://twitter.com/'+this.from_user+'"><img width="48" height="48" alt="'+this.from_user+' on Twitter" src="'+this.profile_image_url+'" /></a>'+this.text.replace(/<a/g,'<a target="_blank"')+'';
+                    tweet_string += tweet;
+                    //tweet_array.push(tweet); //add the tweet to the array
+                });
+                tweet_string += '</marquee>';
+                //console.log(tweet_string);
+                $(dom_element).html(tweet_string);
+            });
+        }
+        
+        $(document).ready(function(){
+            // set current calendar date
+            var now = new Date();
+            var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+            $('#current_date').text(days[ now.getDay() ] + '. ' + (now.getMonth()+1) + '/' + now.getDate());
+            
+            // get initial data on page load
+            get_tweets('#companytweets','http://search.twitter.com/search.json?q=@nickschwab&rpp=40&callback=?') // get company tweets
+            get_tweets('#publictweets','http://search.twitter.com/search.json?q=pebbletime&rpp=40&callback=?') // get public tweets
+            $('#graph1').panicstrap_update('random') // randomize a specific graph
+            $('#graph3').panicstrap_update(86) // set a value for a specific graph
+            $('#updown1').panicstrap_update('random') // randomize a specific up/down cell
+            $('#updown3').panicstrap_update(67) // set a value for a specific up/down cell
+            
+             // randomize all the data at defined intervals
+            setInterval(function(){ get_tweets('#companytweets','http://search.twitter.com/search.json?q=@nickschwab&rpp=5&callback=?') }, 300000); // get new company tweets every 5 minutes
+            setInterval(function(){ get_tweets('#publictweets','http://search.twitter.com/search.json?q=@pebble&rpp=5&callback=?') }, 300000); // get new public tweets every 5 minutes
+            setInterval(function(){ $('.vertical').panicstrap_update('random') }, 6000); // randomize all graphs
+            setInterval(function(){ $('.updown').panicstrap_update('random') }, 6000); // randomize all updown numbers
+        });
     </script>
 
   </body>
